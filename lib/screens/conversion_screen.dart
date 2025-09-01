@@ -122,7 +122,7 @@ class _ConversionScreenState extends State<ConversionScreen> {
                     ),
                     const SizedBox(height: 8),
                     DropdownButtonFormField<ConversionType>(
-                      initialValue: selectedType,
+                      value: selectedType,
                       decoration: const InputDecoration(
                         border: OutlineInputBorder(),
                         hintText: 'Choose a conversion type',
@@ -160,40 +160,35 @@ class _ConversionScreenState extends State<ConversionScreen> {
                         ),
                       ),
                       const SizedBox(height: 8),
-                      Row(
+                      Column(
                         children: [
-                          Expanded(
-                            flex: 2,
-                            child: TextField(
-                              controller: _inputController,
-                              keyboardType:
-                                  const TextInputType.numberWithOptions(
-                                    decimal: true,
-                                  ),
-                              decoration: const InputDecoration(
-                                border: OutlineInputBorder(),
-                                hintText: 'Enter value',
-                              ),
+                          TextField(
+                            controller: _inputController,
+                            keyboardType: const TextInputType.numberWithOptions(
+                              decimal: true,
+                            ),
+                            decoration: const InputDecoration(
+                              border: OutlineInputBorder(),
+                              hintText: 'Enter value',
+                              labelText: 'Value',
                             ),
                           ),
-                          const SizedBox(width: 8),
-                          Expanded(
-                            flex: 2,
-                            child: DropdownButtonFormField<ConversionUnit>(
-                              initialValue: fromUnit,
-                              decoration: const InputDecoration(
-                                border: OutlineInputBorder(),
-                              ),
-                              items: selectedType!.units
-                                  .map(
-                                    (unit) => DropdownMenuItem(
-                                      value: unit,
-                                      child: Text(unit.toString()),
-                                    ),
-                                  )
-                                  .toList(),
-                              onChanged: _onFromUnitChanged,
+                          const SizedBox(height: 8),
+                          DropdownButtonFormField<ConversionUnit>(
+                            value: fromUnit,
+                            decoration: const InputDecoration(
+                              border: OutlineInputBorder(),
+                              labelText: 'From Unit',
                             ),
+                            items: selectedType!.units
+                                .map(
+                                  (unit) => DropdownMenuItem(
+                                    value: unit,
+                                    child: Text(unit.toString()),
+                                  ),
+                                )
+                                .toList(),
+                            onChanged: _onFromUnitChanged,
                           ),
                         ],
                       ),
@@ -238,41 +233,37 @@ class _ConversionScreenState extends State<ConversionScreen> {
                         ),
                       ),
                       const SizedBox(height: 8),
-                      Row(
+                      Column(
                         children: [
-                          Expanded(
-                            flex: 2,
-                            child: Container(
-                              padding: const EdgeInsets.all(12),
-                              decoration: BoxDecoration(
-                                border: Border.all(color: Colors.grey),
-                                borderRadius: BorderRadius.circular(4),
-                                color: Colors.grey[50],
-                              ),
-                              child: Text(
-                                result.isEmpty ? '0' : result,
-                                style: const TextStyle(fontSize: 16),
-                              ),
+                          Container(
+                            padding: const EdgeInsets.all(12),
+                            width: double.infinity,
+                            decoration: BoxDecoration(
+                              border: Border.all(color: Colors.grey),
+                              borderRadius: BorderRadius.circular(4),
+                              color: Colors.grey[50],
+                            ),
+                            child: Text(
+                              result.isEmpty ? '0' : result,
+                              style: const TextStyle(fontSize: 16),
                             ),
                           ),
-                          const SizedBox(width: 8),
-                          Expanded(
-                            flex: 2,
-                            child: DropdownButtonFormField<ConversionUnit>(
-                              initialValue: toUnit,
-                              decoration: const InputDecoration(
-                                border: OutlineInputBorder(),
-                              ),
-                              items: selectedType!.units
-                                  .map(
-                                    (unit) => DropdownMenuItem(
-                                      value: unit,
-                                      child: Text(unit.toString()),
-                                    ),
-                                  )
-                                  .toList(),
-                              onChanged: _onToUnitChanged,
+                          const SizedBox(height: 8),
+                          DropdownButtonFormField<ConversionUnit>(
+                            value: toUnit,
+                            decoration: const InputDecoration(
+                              border: OutlineInputBorder(),
+                              labelText: 'To Unit',
                             ),
+                            items: selectedType!.units
+                                .map(
+                                  (unit) => DropdownMenuItem(
+                                    value: unit,
+                                    child: Text(unit.toString()),
+                                  ),
+                                )
+                                .toList(),
+                            onChanged: _onToUnitChanged,
                           ),
                         ],
                       ),
